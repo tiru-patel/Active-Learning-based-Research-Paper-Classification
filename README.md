@@ -1,1 +1,10 @@
-### Introduction
+### <center>An Empirical Study of Supervised and Active Learning Methodologies for Classifying Research Papers</center>
+
+#### About The Project
+<hr />
+
+This project broadly compares two methodologies for classifying research papers into their respective research areas. We initially implement the conventional supervised approach for classification, which is then extended by adopting an active learning approach. We experiment with active learning, assuming that the amount of labelled samples in the public data source and the API constraints for extracting labelled data might be insufficient to generalize a conventionally trained supervised model.
+
+For the initial task of building a supervised model, we use the labelled arXiv dataset to fetch the relevant categories of computer science domain in JSON format. This labelled dataset, along with the XML format dataset retrieved from arXiv public API, are respectively passed to a parser script to filter out the title, abstract and type of the research papers in CSV format. Further, we carry out necessary text preprocessing to finally represent the text content in vectorized form for training a supervised machine-learning model. We plan to implement the models as mentioned above and analyse each class's evaluation metrics (accuracy, precision,recall) and report them in a tabular format.
+
+In the following active learning methodology, we use the data fetched from the public API of arXiv as unlabelled data. Firstly, we create a weakly supervised model with a small subset of labelled data. Then we introduce the unlabelled data to the weakly supervised model and make predictions using it. We repeat the process by feeding the unlabelled data in a batch size of 50. Each iteration output serves as pseudo-labels to train the weakly supervised model again. Finally, we reach a phase where the evaluation metrics are saturated. We compare the results of both the methodology and perform a detailed study to determine the best-performing method.
