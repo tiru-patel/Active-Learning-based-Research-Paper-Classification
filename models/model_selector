@@ -1,0 +1,28 @@
+from sklearn.pipeline import Pipeline
+import pandas as pd
+from sklearn.model_selection import GridSearchCV
+from sklearn.base import BaseEstimator
+
+class DummyEstimator(BaseEstimator):
+
+        def fit(self): pass
+        def score(self): pass
+
+class ModelSelector:
+
+    def __init__(self, model_params, x_train, y_train):
+        self.pipeline = Pipeline([('clf', DummyEstimator())])
+        self.model_params = model_params
+        self.x_train = x_train
+        self.y_train = y_train
+        self.score_summary
+        
+    def score_summary(self):
+        gs = GridSearchCV(self.pipeline, self.model_params)
+        gs.fit(self.x_train, self.y_train)
+        frame = pd.DataFrame(gs.cv_results_)
+        self.score_summary = frame.sort_values(['mean_test_score'], ascending=False)
+        return frame
+
+if __name__ == '__main__':
+    pass
