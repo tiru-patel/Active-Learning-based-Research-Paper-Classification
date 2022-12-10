@@ -37,8 +37,8 @@ class SupervisedModel:
 
         
 
-if __name__ == '__main__':
-    iris = datasets.load_iris()
-    supervisedModel = SupervisedModel(iris.data, iris.target)
-    supervisedModel.getBestModel()
+# if __name__ == '__main__':
+#     iris = datasets.load_iris()
+#     supervisedModel = SupervisedModel(iris.data, iris.target)
+#     supervisedModel.getBestModel()
 
