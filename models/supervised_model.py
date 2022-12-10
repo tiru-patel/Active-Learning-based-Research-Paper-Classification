@@ -35,10 +35,3 @@ class SupervisedModel:
         modelSelector = ModelSelector(model_param, self.x_train, self.y_train)
         print(modelSelector.score_summary())
 
-        
-
-# if __name__ == '__main__':
-#     iris = datasets.load_iris()
-#     supervisedModel = SupervisedModel(iris.data, iris.target)
-#     supervisedModel.getBestModel()
-
