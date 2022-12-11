@@ -1,7 +1,9 @@
 from utils.constants import TEXT_FEATURE, CATEGORIES, COUNT_VECT, TFIDF_VECT
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from utils.config import FEATURE_SET_SIZE
 import pandas as pd
 import logging
+import os
 logging.basicConfig(level=logging.INFO)
 
 class Vectorizer:
@@ -27,7 +29,8 @@ class Vectorizer:
         :return: None. Saves te file
         """
         vectors_df[CATEGORIES] = self.data[CATEGORIES]
-        vectors_df.to_pickle(filename + '.pkl')
+        vectors_df.to_pickle(os.getcwd() + "/features/"
+                             + filename + '.pkl')
         # with open(filename+'.pkl', 'wb') as handle:
         #     pickle.dump(vectors_df, handle)
 
@@ -49,7 +52,8 @@ class Vectorizer:
         """
         logging.info("Preparing CountVectorizer features.....")
 
-        count_vectorizer = CountVectorizer(stop_words='english')
+        count_vectorizer = CountVectorizer(stop_words='english',
+                                           max_features=FEATURE_SET_SIZE)
         vectors = count_vectorizer.fit_transform(self.data[feature])
 
         logging.info("CountVectorizer Features Generated!")
@@ -67,7 +71,8 @@ class Vectorizer:
         """
         logging.info("Preparing TFIDF features.....")
 
-        tfidf_vectorizer = TfidfVectorizer(stop_words='english')
+        tfidf_vectorizer = TfidfVectorizer(stop_words='english',
+                                           max_features=FEATURE_SET_SIZE)
         vectors = tfidf_vectorizer.fit_transform(self.data[feature])
 
         logging.info("TFIDF Features Generated!")

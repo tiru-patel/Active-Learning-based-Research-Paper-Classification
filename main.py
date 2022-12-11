@@ -7,9 +7,10 @@ from features.vectorizer import Vectorizer
 from utils.constants import CATEGORIES, TITLE, ABSTRACT, TEXT_FEATURE
 from models.supervised_model import SupervisedModel
 import warnings
+import os
 warnings.filterwarnings("ignore") 
 
-df = pd.read_csv('labelled_data.csv')
+df = pd.read_csv(os.getcwd() + "/data/labelled/" + "cs_data.csv")
 df = df[[TITLE, ABSTRACT, CATEGORIES]]
 
 mapping = {}
