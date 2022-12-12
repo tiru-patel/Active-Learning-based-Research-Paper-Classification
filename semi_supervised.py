@@ -30,7 +30,7 @@ class Semisupervised():
         x = df[['title', 'abstract']].agg(' '.join, axis=1)
         y = df["categories"]
 
-        train_x,test_x,train_y,test_y = tts(x,y,test_size=0.2,stratify=y)
+        train_x,test_x,train_y,test_y = tts(x,y,train_size=0.2,stratify=y)
         self.test_labels = test_y
 
         tfidf_vect = TfidfVectorizer(stop_words = 'english', max_features=1000)
