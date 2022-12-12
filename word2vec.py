@@ -60,12 +60,10 @@ class Word2Vec:
             # Appending the sentence to the dataframe
             W2Vec_Data = W2Vec_Data.append(pd.DataFrame([Sentence]))
         
-        return W2Vec_Data
-
-    def convert_all_text_to_word2vec(self):
-        self.W2Vec_Data = self.FunctionText2Vec(self.data['text'])
+        return W2Vec_Data        
  
     def get_data_for_classification(self):
+        self.W2Vec_Data = self.FunctionText2Vec(self.data['text'])
         # Adding the target variable
         self.W2Vec_Data.reset_index(inplace=True, drop=True)
 
@@ -73,6 +71,8 @@ class Word2Vec:
         
         # Assigning to DataForML variable
         self.DataForML = self.W2Vec_Data
+
+        return self.DataForML
 
     def get_train_and_test_data(self):
         TargetVariable = self.DataForML.columns[-1]
@@ -98,8 +98,8 @@ class Word2Vec:
         X = input
         if vectorize == True:
             X = self.FunctionText2Vec(input)
+        
         X = self.PredictorScalerFit.transform(X)
-
         prediction = model.predict(X)
         
         return prediction
