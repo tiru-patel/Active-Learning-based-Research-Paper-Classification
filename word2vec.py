@@ -4,6 +4,7 @@ import gensim
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import StandardScaler
+from imblearn.over_sampling import BorderlineSMOTE
 from sklearn.model_selection import train_test_split
 
 class Word2Vec:
@@ -27,7 +28,7 @@ class Word2Vec:
         )
 
         # Adding new column for the target variable
-        self.CountVectorizedData['Priority'] = self.data['categories']
+        self.CountVectorizedData['categories'] = self.data['categories']
 
         #Loading the word vectors from Google trained word2Vec model
         self.GoogleModel = gensim.models.KeyedVectors.load_word2vec_format(google_model_path, binary=True,)
@@ -62,15 +63,23 @@ class Word2Vec:
         
         return W2Vec_Data        
  
-    def get_data_for_classification(self):
+    def get_data_for_classification(self, oversample = False):
         self.W2Vec_Data = self.FunctionText2Vec(self.data['text'])
         # Adding the target variable
         self.W2Vec_Data.reset_index(inplace=True, drop=True)
 
-        self.W2Vec_Data['Priority'] = self.CountVectorizedData['Priority']
+        self.W2Vec_Data['categories'] = self.CountVectorizedData['categories']
         
         # Assigning to DataForML variable
         self.DataForML = self.W2Vec_Data
+
+        if oversample == True:
+            sm2 = BorderlineSMOTE(random_state=42)
+            word2vec_train, train_y = sm2.fit_resample(self.DataForML.iloc[:, :-1], self.DataForML.iloc[:, -1:])
+
+            word2vec_train.insert(300, "categories", train_y, True)
+
+            self.DataForML = word2vec_train
 
         return self.DataForML
 
