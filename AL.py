@@ -2,7 +2,7 @@ import warnings
 from sklearn.metrics import classification_report
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-from sklearn.semi_supervised import LabelSpreading
+
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 from imblearn.over_sampling import BorderlineSMOTE
