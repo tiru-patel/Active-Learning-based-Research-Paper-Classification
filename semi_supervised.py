@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 
 from preprocess import preprocess_text
+from word2vec import Word2Vec
 from features.vectorizer import Vectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import LogisticRegression
@@ -30,7 +31,7 @@ class Semisupervised():
         x = df[['title', 'abstract']].agg(' '.join, axis=1)
         y = df["categories"]
 
-        train_x,test_x,train_y,test_y = tts(x,y,train_size=0.2,stratify=y)
+        train_x,test_x,train_y,test_y = tts(x,y,train_size=0.6,stratify=y)
         self.test_labels = test_y
 
         tfidf_vect = TfidfVectorizer(stop_words = 'english', max_features=1000)
